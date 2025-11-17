@@ -7,13 +7,14 @@ import { DataType } from './lib/mcpx/type.d';
 import { fileURLToPath } from 'url';
 import path from "path";
 import fs from "fs/promises";
+import dotenv from 'dotenv';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 const server = new McpServer({
   name: 'mcpx-mcp-server',
-  version: '1.0.0'
+  version: '0.0.0'
 });
 
 const dataTypeSchema = z.enum([
@@ -22,6 +23,33 @@ const dataTypeSchema = z.enum([
   DataType.Float,
   DataType.Bool,
 ]);
+
+dotenv.config();
+
+const plcIp = process.env.PLC_IP ?? '127.0.0.1';
+const plcPort = process.env.PLC_PORT ? Number(process.env.PLC_PORT) : 10000;
+const isAscii = process.env.IS_ASCII === 'true';
+const isUdp = process.env.IS_UDP === 'true';
+
+server.registerTool(
+  'get-plc-connect-config',
+  {
+    title: 'PLC接続情報取得',
+    description: `
+      PLCの接続情報を取得します。
+
+      `,
+    inputSchema: {},
+    outputSchema: { config: z.object({ ip: z.string(), port: z.number(), isAscii: z.boolean(), isUdp: z.boolean() }) }
+  },
+  async () => {
+    const output = { config: { ip: plcIp, port: plcPort, isAscii, isUdp }};
+    return {
+      content: [{ type: 'text', text: JSON.stringify(output) }],
+      structuredContent: output
+    };
+    }
+);
 
 server.registerTool(
   'batch-read',
@@ -40,7 +68,7 @@ server.registerTool(
     outputSchema: { result: z.array(z.union([z.number(), z.boolean()])) }
   },
   async ({ address, length, deviceType }) => {
-    const mcpx = new McpX('192.168.12.88', 10000);
+    const mcpx = new McpX(plcIp!, plcPort!, undefined, isAscii!, isUdp!);
     const values = mcpx.batchRead(deviceType, address, length);
     mcpx.dispose();
     const output = { result: Array.from(values) };
@@ -69,7 +97,7 @@ server.registerTool(
     outputSchema: { result: z.boolean() }
   },
   async ({ address, value, deviceType }) => {
-    const mcpx = new McpX('192.168.12.88', 10000);
+    const mcpx = new McpX(plcIp!, plcPort!, undefined, isAscii!, isUdp!);
     mcpx.batchWrite(deviceType, address, value);
     mcpx.dispose();
     const output = { result: true };
