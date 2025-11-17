@@ -1,0 +1,8 @@
+[
+  { "address": "M0", "name": "コンベアA 運転指令", "comment": "trueで運転、falseで停止" },
+  { "address": "M1", "name": "コンベアA 運転状態", "comment": "trueで運転、falseで停止" },
+  { "address": "M2", "name": "ゲートA 開指令", "comment": "trueで開、falseで閉" },
+  { "address": "M3", "name": "ゲートA 状態", "comment": "trueで開、falseで閉" },
+  { "address": "D0", "name": "生産数", "comment": "short型" },
+  { "address": "D1", "name": "目標生産数", "comment": "short型" }
+]

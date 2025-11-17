@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./build/node/Dockerfile
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+      - /app/src/bin
+    working_dir: /app
+    ports:
+      - 3000:3000
+    command: "npm run mcpx-mcp-server-run"
