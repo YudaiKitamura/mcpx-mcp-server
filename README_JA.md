@@ -1,4 +1,5 @@
 # mcpx-mcp-server
+<img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue" />
 <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg" />
 <p>
   <a href="README_JA.md">日本語</a> | <a href="README.md">English</a>
@@ -30,6 +31,18 @@ PLCの通信には MCプロトコルライブラリ [McpX](https://github.com/Yu
 以下のアプリケーションがインストールされている必要があります。
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
+
+### PLC接続情報
+`app/src/.env`にてPLCの接続情報を設定します。
+
+```sh
+PLC_IP=192.168.12.88  # PLCのIPアドレス
+PLC_PORT=10000        # PLCのポート番号
+IS_ASCII=false        # PLCの通信方式（true:ASCII、false:バイナリ）
+IS_UDP=false          # PLCの通信方式（true:UDP、false:TCP）
+```
+
+> ※PLC接続情報を変更した際は、MCPサーバーの再起動が必要です。
 
 ### デバイス定義
 事前にデバイス定義（`app/src/address-comment.json`）を設定することで、命名アクセスやアクセス時のルールを適応した操作が可能になります。

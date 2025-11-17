@@ -1,4 +1,5 @@
 # mcpx-mcp-server
+<img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue" />
 <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg" />
 <p>
   <a href="README_JA.md">日本語</a> | <a href="README.md">English</a>
@@ -31,6 +32,18 @@ For PLC communication, it uses the NativeAOT build of the MC Protocol library [M
 The following applications must be installed:
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
+
+### PLC Connection Information
+Set the PLC connection information in `app/src/.env.`
+
+```sh
+PLC_IP=192.168.12.88  # PLC IP address
+PLC_PORT=10000         # PLC port number
+IS_ASCII=false         # PLC communication mode (true: ASCII, false: Binary)
+IS_UDP=false           # PLC communication protocol (true: UDP, false: TCP)
+```
+
+> Note: When changing the PLC connection information, you need to restart the MCP server.
 
 ### Device Definition
 By predefining device definitions (`app/src/address-comment.json`), you can operate devices with named access and apply access rules.
