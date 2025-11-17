@@ -1,6 +1,8 @@
 # mcpx-mcp-server
-<img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue" />
-<img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg" />
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue" />
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg" />
+</p>
 <p>
   <a href="README_JA.md">日本語</a> | <a href="README.md">English</a>
 </p>
